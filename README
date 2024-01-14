@@ -1,0 +1,1 @@
+An attempt at getting 1 megabaud out of a low-cost PC817 optocoupler complete with output compensation. This means the output will be a nice square wave (despite PC817's being notoriously slow), and an equation will be calculated to match input and output timings.
