@@ -1,7 +1,8 @@
 #include <Arduino.h>
 #include <sweep.hpp>
 
-void setup() {
+void setup()
+{
   // put your setup code here, to run once:
   pinMode(3, OUTPUT);
   // pinMode(11, OUTPUT);
@@ -14,7 +15,8 @@ void setup() {
   Serial.begin(9600);
 }
 
-void loop() {
+void loop()
+{
   /*
     Pin 3 is OC2B, or Timer 2 B output.
     Setting WGM21 with WGM22 and WGM 20 sets
@@ -51,9 +53,9 @@ void loop() {
   TCCR2B |= _BV(CS21);
   // Sets a prescaler value of 8.
 
-   uint8_t prescaler_state = 1;
-   uint8_t counter_max = 0;
-   uint8_t hold_time = 2000;
-   
-   sweep_and_print(prescaler_state, counter_max, hold_time);
+  uint8_t prescaler_state = 1;
+  uint8_t counter_max = 0;
+  uint8_t hold_time = 2000;
+
+  sweep_and_print(prescaler_state, counter_max, hold_time);
 }
