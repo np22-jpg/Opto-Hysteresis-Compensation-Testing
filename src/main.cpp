@@ -5,7 +5,7 @@ void setup()
 {
   // put your setup code here, to run once:
   pinMode(3, OUTPUT);
-  // pinMode(11, OUTPUT);
+  pinMode(11, OUTPUT);
   pinMode(A0, INPUT);
 
   TCCR2A = 0;
@@ -23,7 +23,7 @@ void loop()
     CTC mode, where the timer is reset every
     time the counter hits a value (set later as OCR2A)
   */
-  TCCR2A |= _BV(COM2B0) | _BV(WGM21);
+  TCCR2A |= _BV(COM2B0) | _BV(COM2A0) | _BV(WGM21);
 
   /*
     Set the prescaler factor f_p
@@ -53,9 +53,9 @@ void loop()
   TCCR2B |= _BV(CS21);
   // Sets a prescaler value of 8.
 
-  uint8_t prescaler_state = 1;
-  uint8_t counter_max = 0;
-  uint8_t hold_time = 2000;
+  uint8_t prescaler_state = 7;
+  uint8_t counter_max = 1;
+  uint32_t hold_time = 2000;
 
   sweep_and_print(prescaler_state, counter_max, hold_time);
 }

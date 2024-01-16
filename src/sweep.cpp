@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include <sweep.hpp>
 
-void sweep_and_print(uint8_t &TCCR2B_state, uint8_t &OCR2A_value, uint8_t &delayms)
+void sweep_and_print(uint8_t &TCCR2B_state, uint8_t &OCR2A_value, uint32_t &delayms)
 {
   uint32_t currentfreq = 0;
   uint32_t prescaler_factor = 0;
@@ -9,6 +9,8 @@ void sweep_and_print(uint8_t &TCCR2B_state, uint8_t &OCR2A_value, uint8_t &delay
   // Set D3 to output
   TCCR2B = TCCR2B_state;
   OCR2A = OCR2A_value;
+  OCR2B = OCR2A_value;
+
 
   // Map prescaler state to prescaler factor
   switch (TCCR2B_state)
@@ -40,7 +42,7 @@ void sweep_and_print(uint8_t &TCCR2B_state, uint8_t &OCR2A_value, uint8_t &delay
   }
 
   // Calculate current frequency
-  currentfreq = 16000000 / (2 * (OCR2A_value + 1));
+  currentfreq = 16000000 / (2 * (OCR2A_value + 1) * prescaler_factor);
 
   // Print results
   Serial.print("TCCR2B_state: ");

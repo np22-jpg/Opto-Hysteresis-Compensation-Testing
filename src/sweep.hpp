@@ -9,6 +9,6 @@
  * @param TCCR2B_state The state of TCCR2B.
  * @param OCR2A_value The value of OCR2A.
  */
-void sweep_and_print(uint8_t &TCCR2B_state, uint8_t &OCR2A_value, uint8_t &delayms);
+void sweep_and_print(uint8_t &TCCR2B_state, uint8_t &OCR2A_value, uint32_t &delayms);
 
 #endif
