@@ -45,12 +45,12 @@ void sweep_and_print(uint8_t &TCCR2B_state, uint8_t &OCR2A_value, uint32_t &dela
   currentfreq = 16000000 / (2 * (OCR2A_value + 1) * prescaler_factor);
 
   // Print results
-  Serial.print("TCCR2B_state: ");
-  Serial.println(TCCR2B_state);
-  Serial.print("Prescaler factor: ");
-  Serial.println(prescaler_factor);
-  Serial.print("Counter limit: ");
-  Serial.println(OCR2A_value);
+  // Serial.print("TCCR2B_state: ");
+  // Serial.println(TCCR2B_state);
+  // Serial.print("Prescaler factor: ");
+  // Serial.println(prescaler_factor);
+  // Serial.print("Counter limit: ");
+  // Serial.println(OCR2A_value);
   Serial.print("Frequency (Hz): ");
   Serial.println(currentfreq);
 

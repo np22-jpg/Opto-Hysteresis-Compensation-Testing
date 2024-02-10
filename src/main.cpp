@@ -1,12 +1,18 @@
 #include <Arduino.h>
 #include <sweep.hpp>
 
+int prescaler_button_pin = 2;
+int counter_set_button_pin = 4;
+
 void setup()
 {
   // put your setup code here, to run once:
   pinMode(3, OUTPUT);
   pinMode(11, OUTPUT);
+  pinMode(LED_BUILTIN, OUTPUT);
   pinMode(A0, INPUT);
+  pinMode(prescaler_button_pin, INPUT);
+  pinMode(counter_set_button_pin, INPUT);
 
   TCCR2A = 0;
   TCCR2B = 0;
@@ -55,7 +61,44 @@ void loop()
 
   uint8_t prescaler_state = 7;
   uint8_t counter_max = 1;
-  uint32_t hold_time = 2000;
+  uint32_t hold_time = 1000;
+  bool prescaler_button_state = false;
+  bool counter_set_button_state = false;
 
-  sweep_and_print(prescaler_state, counter_max, hold_time);
+  while (prescaler_state >= 1)
+  {
+    prescaler_button_state = digitalRead(prescaler_button_pin);
+    counter_set_button_state = digitalRead(counter_set_button_pin);
+
+    // Increment prescaler state
+    if (prescaler_button_state == HIGH)
+    {
+      if (prescaler_state == 1)
+      {
+        prescaler_state = 7;
+      }
+      else
+      {
+        Serial.println("Prescaler button pressed, incrementing counter.");
+        prescaler_state--;
+        delay(100); // Debounce
+      }
+    }
+  
+    // Increment counter max
+    if (counter_set_button_state == HIGH)
+    {
+      if (counter_max >= 255)
+      {
+        counter_max = 1;
+      }
+      else
+      {
+        Serial.println("Counter button pressed, incrementing counter.");
+        counter_max *= 2; // Double the counter max with each press
+        delay(100); // Debounce
+      }
+    }
+    sweep_and_print(prescaler_state, counter_max, hold_time);
+  }
 }
